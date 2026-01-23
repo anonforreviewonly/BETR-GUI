@@ -1,0 +1,9 @@
+
+You should only respond in the format as described below, do not mention anything else:
+RESPONSE FORMAT:
+Reasoning: Based on the task description, do reasoning in first person as if you are the robot about what you must do and what the goal conditions should be.
+Conditions: List the final goal conditions in the chronological order that they should be fulfilled by the robot. Ignore objects that are irrelevant to the task, but make sure to remember secondary objects like [object2] in the conditions and if there are any specific requirements on their position. The first mentioned goal condition will be fulfilled first. Remove any temporary conditions that may be satisfied at some point but should not be satisfied in the final state. For example if an object is grasped during execution but should not be grasped when the task is completed "[object] grasped" should not be in the list of conditions. If there are multiple sets of conditions that would all solve the task, only give one set.
+
+
+
+Now translate this task description:

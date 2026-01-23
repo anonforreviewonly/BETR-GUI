@@ -1,0 +1,8 @@
+The objects available in this scene are
+"blue cube"
+"green cube"
+"red cube"
+"yellow cube"
+"bowl"
+
+Scene description:

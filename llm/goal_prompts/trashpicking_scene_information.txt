@@ -1,0 +1,9 @@
+The objects available in this scene are
+"paper"
+"can"
+"banana"
+"green bin"
+"yellow bin"
+"blue bin"
+
+Scene description:

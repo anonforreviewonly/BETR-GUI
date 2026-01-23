@@ -1,0 +1,142 @@
+syntax = "proto3";
+package ik;
+
+message Observations {
+  repeated AgentObservation agents = 1;
+}
+
+message Step {
+  repeated AgentControls controls = 1;
+  optional int32 stepCount = 2;
+  optional float timeScale = 3;
+}
+
+message TakeScreenshot {
+  optional Vector3 position = 1;
+  optional Vector3 orientationEuler = 2;
+}
+
+message Reset {
+  repeated ResetParameters envsToReset = 1;
+  bool reloadScene = 2;
+  optional Transform cameraPosition = 3;
+}
+
+message ResetParameters {
+  int32 index = 1;
+  oneof env_type {
+    EnvCubeBowlParameters envCubeBowl = 2;
+    EnvTablewareParameters envTableware = 3;
+    EnvTrashPickingParameters envTrashPicking = 4;
+    EnvSpheresParameters envSpheres = 5;
+  }
+}
+
+message EnvSpheresParameters {
+  optional Transform sphereRed = 2;
+  optional Transform sphereGreen = 3;
+  optional Transform sphereYellow = 4;
+  optional Transform goal = 5;
+  optional Transform agentPosition = 6;
+}
+
+message EnvCubeBowlParameters {
+  optional Transform bowl = 1;
+  optional Transform cubeRed = 2;
+  optional Transform cubeBlue = 3;
+  optional Transform cubeGreen = 4;
+  optional Transform cubeYellow = 5;
+  optional Transform agentPosition = 6;
+}
+
+message EnvTablewareParameters {
+  optional Transform plate = 1;
+  optional Transform knife = 2;
+  optional Transform spoon = 3;
+  optional Transform fork = 4;
+  optional Transform glass = 5;
+  optional Transform agentPosition = 6;
+}
+
+message EnvTrashPickingParameters {
+  optional Transform agentPosition = 1;
+  optional Transform binGreen = 2;
+  optional Transform binYellow = 3;
+  optional Transform binBlue = 4;
+  optional Transform trashPaper = 5;
+  optional Transform trashFood = 6;
+  optional Transform trashMetal = 7;
+}
+
+message Configure {
+  repeated ConfigureParameters envsToConfigure = 1; // Not there yet
+}
+
+message AgentObservation {
+  int32 index = 1;
+
+  map<string, Transform> transformsByNameArmFrame = 2;
+  map<string, Transform> transformsByNameEnvFrame = 3;
+
+  repeated float currentJointAnglesDeg = 4;
+  bool gripSuccessful = 5;
+  bool isBetweenGripper = 6;
+  string betweenGripper = 7;
+
+  repeated Transform linkTransformsArm = 8;
+  repeated Transform linkTransformsArmRelative = 9;
+
+}
+
+message AgentControls {
+  int32 index = 1;
+  repeated float jointTargetsDeg = 2;
+  bool activateGrip = 3;
+  Transform targetBasePose = 4;
+  bool baseImmobile = 5;
+}
+
+
+message ConfigureParameters {
+  int32 index = 1;
+  repeated LinkParameters linkParameters = 2;
+  WheelParameters wheelParameters = 3;
+}
+
+message LinkParameters {
+  int32 linkIndex = 1;
+  float stiffness = 2;
+  float damping = 3;
+  float forceLimit = 4;
+}
+
+message WheelParameters {
+  float torque = 1;
+  PID velocityPID = 2;
+  PID yawPID = 3;
+}
+
+message Transform {
+  Vector3 position = 1;
+  optional Vector3 euler = 2;
+  optional Quaternion orientation = 3;
+}
+
+message PID {
+  float kp = 1;
+  float kd = 2;
+  float ki = 3;
+}
+
+message Vector3 {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+}
+
+message Quaternion {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+  float w = 4;
+}
